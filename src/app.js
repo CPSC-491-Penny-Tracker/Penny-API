@@ -3,6 +3,7 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
+const searchRoute = require('./route/search/search-route')
 const { NODE_ENV } = require('./config');
 const app = express();
 const morganOption = (process.env.NODE_ENV === 'production') 
@@ -15,6 +16,8 @@ app.use(cors());
 app.get('/', (req, res)=>{
   res.send('cpsc-491');
 });
+
+app.use('/api/search', searchRoute);
 
 app.use(function errorHandler(error, req, res, next) {
   let response;
