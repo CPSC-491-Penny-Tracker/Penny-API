@@ -3,6 +3,8 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
+const authRoute = require('./route/authorization/authorization-route')
+const userRoute = require('./route/user/user-route')
 const searchRoute = require('./route/search/search-route')
 const { NODE_ENV } = require('./config');
 const app = express();
@@ -14,9 +16,11 @@ app.use(helmet());
 app.use(cors());
 
 app.get('/', (req, res)=>{
-  res.send('cpsc-491');
+  res.send({'data': 'CPSC-491'});
 });
 
+app.use('/api/auth', authRoute);
+app.use('/api/user', userRoute);
 app.use('/api/search', searchRoute);
 
 app.use(function errorHandler(error, req, res, next) {
