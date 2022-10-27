@@ -6,6 +6,7 @@ const helmet = require('helmet');
 const authRoute = require('./route/authorization/authorization-route')
 const userRoute = require('./route/user/user-route')
 const searchRoute = require('./route/search/search-route')
+const budgetRoute = require('./route/budget/budget-route')
 const { NODE_ENV } = require('./config');
 const app = express();
 const morganOption = (process.env.NODE_ENV === 'production') 
@@ -22,6 +23,7 @@ app.get('/', (req, res)=>{
 app.use('/api/auth', authRoute);
 app.use('/api/user', userRoute);
 app.use('/api/search', searchRoute);
+app.use('/api/budget', budgetRoute);
 
 app.use(function errorHandler(error, req, res, next) {
   let response;
