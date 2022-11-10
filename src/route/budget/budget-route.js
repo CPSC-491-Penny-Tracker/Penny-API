@@ -7,7 +7,7 @@ const budgetService = require('./budget-service');
 const regex = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&])[\S]+/;
 
 budgetRouter
-	.routr('/')
+	.route('/')
 	.get(async (req, res, next) => {
 		const db = req.app.get('db');
 		await BudgetService
