@@ -1,17 +1,28 @@
 
 const budgetService = {
-	getBudget(db) {
+	getBudget(db, user_id) {
 		return db 
-			.select('budgets.store')
-			.from('budgets');
+			.select('*')
+			.from('limits')
+			.where('user_id', user_id)
 	},
-
-	insertBudget(db, newBudget) {
+	updateAmazon(db, user_id, amount) {
 		return db
-			.insert(newBudget)
-			.into('budgets')
-			.returning('*')
-			.then(([budget]) => budget);
+			.into('limits')
+			.where({user_id})
+			.update({'amazon': amount})
+	},
+	updateBestBuy(db, user_id, amount) {
+		return db
+			.into('limits')
+			.where({user_id})
+			.update({'bestbuy': amount})
+	},
+	updateEbay(db, user_id, amount) {
+		return db
+			.into('limits')
+			.where({user_id})
+			.update({'ebay': amount})
 	}
 };
 

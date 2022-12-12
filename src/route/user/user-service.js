@@ -25,6 +25,18 @@ const userService = {
       .into('users')
       .returning('*')
       .then(([user]) => user );
+  },
+
+  addBudgets(db, user_id) {
+    return db
+      .insert({user_id})
+      .into('limits')
+  },
+
+  addSummarys(db, user_id) {
+    return db
+      .insert({user_id})
+      .into('summary')
   }
 };
 

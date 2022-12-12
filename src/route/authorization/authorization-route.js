@@ -56,6 +56,7 @@ authRouter
             const sub = user.username;
             const payload = {
               username: user.username,
+              user_id: user.id
             };
             return res.send({ authToken: AuthorizationService.createJsonWebToken(sub, payload) })
           }
@@ -68,7 +69,8 @@ authRouter
     try{
       const sub = req.user.username;
       const payload = {
-        username: req.user.username
+        username: req.user.username,
+        user_id: req.user.user_id
       };
       res.send({ authToken: AuthorizationService.createJsonWebToken(sub, payload) });
     } catch (error) {
