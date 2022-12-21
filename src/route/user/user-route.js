@@ -85,9 +85,12 @@ userRouter
             const user = await UserService.validateUserName(db, newUser.username);
             if (user) 
               return res.status(400).send({ message: 'Username already taken'});
-            else
-              UserService.insertUser(db, newUser);
-            return newUser;
+            else{
+              const users= await UserService.insertUser(db, newUser);
+              await UserService.addBudgets(db,users.id);
+              await UserService.addSummarys(db,users.id);
+              return users;
+            }
           })
           .then(async user => {
             const sub = user.username;
@@ -95,8 +98,6 @@ userRouter
               username: user.username,
               user_id: user.id
             };
-            await UserService.addBudgets(db,user.id);
-            await UserService.addSummarys(db,user.id);
             return res.send({ authToken: AuthorizationService.createJsonWebToken(sub, payload) });
           })
       
