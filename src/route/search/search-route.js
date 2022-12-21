@@ -19,7 +19,6 @@ searchRouter
                 .then((response) => {
                     let $ = cheerio.load(response.body);
                     const data = {shopping_results: []};
-                    let shopping_results = [];
                     $(".sh-dgr__content").each((i,el) => {
                         data.shopping_results.push({
                             title: $(el).find(".tAxDx").text(),
